@@ -8,7 +8,6 @@ module Api
         include RocketPants::ErrorHandling
         include RocketPants::StrongParameters
         include RocketPants::Versioning
-        include SerializerScope
 
         respond_to :json
 
@@ -33,7 +32,7 @@ module Api
           end
         end
 
-        private
+        protected
 
         def password_params
           params.require(:user).permit(:reset_password_token, :password, :password_confirmation)
@@ -41,6 +40,10 @@ module Api
 
         def email_params
           params.require(:user).permit(:email)
+        end
+
+        def default_serializer_options
+          super.merge scope: current_user
         end
       end
 

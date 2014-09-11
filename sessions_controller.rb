@@ -9,7 +9,6 @@ module Api
         include RocketPants::ErrorHandling
         include RocketPants::StrongParameters
         include RocketPants::Versioning
-        include SerializerScope
 
         respond_to :json
 
@@ -36,6 +35,12 @@ module Api
 
         def failure
           error! :unauthenticated
+        end
+
+        protected
+
+        def default_serializer_options
+          super.merge scope: current_user
         end
       end
 

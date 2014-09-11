@@ -9,7 +9,6 @@ module Api
         include RocketPants::ErrorHandling
         include RocketPants::StrongParameters
         include RocketPants::Versioning
-        include SerializerScope
 
         respond_to :json
 
@@ -34,7 +33,7 @@ module Api
           end
         end
 
-        private
+        protected
 
         def authenticate_user! options = {}
           if request.env['warden'].authenticate(scope: :user).blank?
@@ -44,6 +43,10 @@ module Api
 
         def user_params
           params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :username)
+        end
+
+        def default_serializer_options
+          super.merge scope: current_user
         end
       end
 
