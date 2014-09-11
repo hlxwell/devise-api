@@ -7,7 +7,6 @@ module Api
         include RocketPants::ErrorHandling
         include RocketPants::StrongParameters
         include RocketPants::Versioning
-        include SerializerScope
 
         respond_to :json
 
