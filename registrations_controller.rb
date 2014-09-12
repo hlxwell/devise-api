@@ -44,10 +44,6 @@ module Api
         def user_params
           params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :username)
         end
-
-        def default_serializer_options
-          super.merge scope: current_user
-        end
       end
 
     end

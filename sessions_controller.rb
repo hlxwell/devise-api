@@ -36,12 +36,6 @@ module Api
         def failure
           error! :unauthenticated
         end
-
-        protected
-
-        def default_serializer_options
-          super.merge scope: current_user
-        end
       end
 
     end
